@@ -10,21 +10,29 @@ if (isset($_GET['btncalc'])) {
 	$valor2 = $_GET['txtn2'];
 	$operacao = $_GET['rdocalc'];
 
-	if ($operacao == 'somar') {
-		$resultado = $valor1 + $valor2;
-	} else if ($operacao == 'subtrair') {
-		$resultado = $valor1 - $valor2;
-	} else if($operacao == 'multiplicar'){
-		$resultado = $valor1 * $valor2;
+	if($valor1 == "" || $valor2 == ""){
+		echo('<p class="msgErro">Preencha todos os campos</p>');
 	}else{
-		$resultado = $valor1 / $valor2;
-	}
+		if(!is_numeric($valor1) || !is_numeric($valor2)){
+			echo('<p class="msgErro">Para fazer o cálculo é necessário ser números </p>');
+		}
+
+		else{
+			if ($operacao == 'somar') {
+				$resultado = $valor1 + $valor2;
+			} else if ($operacao == 'subtrair') {
+				$resultado = $valor1 - $valor2;
+			} else if($operacao == 'multiplicar'){
+				$resultado = $valor1 * $valor2;
+			}else{
+				$resultado = $valor1 / $valor2;
+			}
+		}
+	}	
 }
-
-
 ?>
-<html>
 
+<html>
 <head>
 	<title>Calculadora - Simples</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -39,8 +47,8 @@ if (isset($_GET['btncalc'])) {
 
 		<div id="form">
 			<form name="frmcalculadora" method="get" action="">
-				Valor 1:<input type="text" name="txtn1" value="0"> <br>
-				Valor 2:<input type="text" name="txtn2" value="0"> <br>
+				Valor 1:<input type="text" name="txtn1" value="<?php echo($valor1) ?>"> <br>
+				Valor 2:<input type="text" name="txtn2" value="<?php echo ($valor2)?>"> <br>
 				<div id="container_opcoes">
 					<input type="radio" name="rdocalc" value="somar" checked>Somar <br>
 					<input type="radio" name="rdocalc" value="subtrair">Subtrair <br>
